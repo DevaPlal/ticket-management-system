@@ -4,12 +4,21 @@ const Schema = mongoose.Schema;
 
 const destinationSchema = new Schema({
   name: String,
+  address: String,
   location: {
-    type: String,
-    coordinates: [Number]
+    type: {
+      type: String,
+      enum:['Point'],
+      required: true
+    },
+    coordinates: {
+      type: [Number]
+      required: true
+    }
   },
   description: String
-},{ timestamps: true });
+},
+  { timestamps: true });
 
 const Destination = mongoose.model("Destination",destinationSchema);
 
