@@ -20,11 +20,6 @@ mongoose.connect(dbURI)
   });
 
 
-//app.listen(PORT,() => {
-//  console.log(`listening on http://localhost:${PORT}`);
-//});
-
-
 app.get("/",(req,res) => {
   res.send("hai");
 });
@@ -53,4 +48,51 @@ app.get('/destinations', (req, res) => {
       res.json(result);
     }
   });
+});
+
+
+app.post("/parking-slots",(req,res) => {
+
+  const {name,longitude,latitude} = req.body;
+});
+
+
+app.get("/destinations/:id",(req,res) => {
+
+});
+
+
+
+app.get('/parking-slots', (req, res) => {
+  const longitude = Number(req.query.longitude);
+  const latitude = Number(req.query.latitude);
+
+  //db.collection('destinations').find({
+    Destinations.find({
+    location: {
+      $nearSphere: {
+        $geometry: {
+          type: "Point",
+          coordinates: [longitude, latitude]
+        },
+        $maxDistance: 500 
+      }
+    }
+  }).toArray((err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error fetching parking slots!');
+    } else {
+      res.json(result);
+    }
+  });
+});
+
+
+app.get("/parking-slots/:id",(req,res) => {
+
+});
+
+app.get("/events",(req,res) => {
+
 });

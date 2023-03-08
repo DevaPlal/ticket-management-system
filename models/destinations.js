@@ -10,6 +10,6 @@ const destinationSchema = new Schema({
   }
 },{ timestamps: true });
 
-const Destination = mongoose.model("Destination",desinationSchema);
+const Destination = mongoose.model("Destination",destinationSchema);
 
 module.exports = Destination;
