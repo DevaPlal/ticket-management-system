@@ -7,7 +7,8 @@ const destinationSchema = new Schema({
   location: {
     type: String,
     coordinates: [Number]
-  }
+  },
+  description: String
 },{ timestamps: true });
 
 const Destination = mongoose.model("Destination",destinationSchema);
