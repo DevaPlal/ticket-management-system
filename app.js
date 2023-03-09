@@ -96,6 +96,7 @@ app.post("/destinations", async (req,res) => {
   try{
     const destination = await Destination.create({
       name, 
+      address,
       location: {type: type, coordinates: [longitude,latitude]},
       description: description
     });
