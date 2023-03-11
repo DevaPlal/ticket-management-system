@@ -14,16 +14,28 @@ const userSchema = new Schema({
     type: String,
     required:[true, "Please enter a last name"]
   },
+  phone: {
+    type: String,
+    required: [true, "Please enter a phone number"],
+    unique: [true],
+    minlength: [10,"Phone number should have ten digits"],
+    maxlength: [10,"Phone number should have ten digits"]
+  },
   email: {
     type: String,
     required: [true ,"Please enter an email"],
     unique: [true],
     validate: [isEmail, "Please enter a valid email"]
   },
+
   password: {
     type: String,
     required: [true, "Please enter a password"],
     minlength: [6, "Minimum password length is 6 characters"]
+  },
+  role: {
+    type: String,
+    required: [true],
   }
 },{ timestamps: true }
 );
