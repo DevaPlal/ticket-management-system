@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 
+const authRoutes = require("./routes/authRoutes");
 const genericRoutes = require("./routes/genericRoutes");
 const destinationRoutes = require("./routes/destinationRoutes");
 const parkingRoutes = require("./routes/parkingRoutes");
@@ -29,6 +30,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(genericRoutes);
+app.use(authRoutes);
 app.use(destinationRoutes);
 app.use(parkingRoutes);
 app.use(eventRoutes);
