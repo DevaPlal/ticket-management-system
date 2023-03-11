@@ -2,7 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 
-const Destination = require("./models/destination");
+// const Destination = require("./models/destination");
+const destinationRoutes = require("./routes/destinationRoutes");
+const parkingRoutes = require("./routes/parkingRoutes");
 
 const app = express();
 
@@ -32,95 +34,79 @@ app.get("/",(req,res) => {
   res.status(200).json({ status : "ok" });
 });
 
+app.use(destinationRoutes);
+app.use(parkingRoutes);
 
-app.get('/destinations', async (req, res) => { 
 
-  const longitude = Number(req.body.longitude);
-  const latitude = Number(req.body.latitude);
-  const range = Number(req.body.range);
 
-  console.log(longitude,latitude,range);
-  try{
 
-   const nearDestinations = await Destination.find({
-          location: {
-            $nearSphere: {
-              $geometry: {
-                type: "Point",
-                coordinates: [longitude, latitude]
-              },
-              $maxDistance: range
-            }
-          }
-        });
 
-        res.status(200).json(nearDestinations);
 
-  }
-  catch(err){
-    console.log(err);
-    res.status(500).json({"message":"Internal server error  "});
-  }
-});
 
-// app.get('/destinations', (req, res) => {
-//   const longitude = Number(req.query.longitude);
-//   const latitude = Number(req.query.latitude);
-//   const range = Number(req.query.range);
-//   //db.collection('destinations').find({
-//     Destination.find({
-//     location: {
-//       $nearSphere: {
-//         $geometry: {
-//           type: "Point",
-//           coordinates: [longitude, latitude]
-//         },
-//         $maxDistance: range 
-//       }
-//     }
-//   }).toArray((err, result) => {
-//     if (err) {
-//       console.error(err);
-//       res.status(500).send('Error fetching destinations!');
-//     } else {
-//       res.json(result);
-//     }
-//   });
-// //});
+
+// app.get('/destinations', async (req, res) => { 
+
+//   const longitude = Number(req.body.longitude);
+//   const latitude = Number(req.body.latitude);
+//   const range = Number(req.body.range);
+
+//   console.log(longitude,latitude,range);
+//   try{
+
+//    const nearDestinations = await Destination.find({
+//           location: {
+//             $nearSphere: {
+//               $geometry: {
+//                 type: "Point",
+//                 coordinates: [longitude, latitude]
+//               },
+//               $maxDistance: range
+//             }
+//           }
+//         });
+
+//         res.status(200).json(nearDestinations);
+
+//   }
+//   catch(err){
+//     console.log(err);
+//     res.status(500).json({"message":"Internal server error  "});
+//   }
 // });
 
-app.post("/destinations", async (req,res) => {
 
-  const { name , address , description } = req.body;
+// app.post("/destinations", async (req,res) => {
 
-  try{
-    const destination = await Destination.create({
-      name, 
-      address,
-      location: {type: type, coordinates: [longitude,latitude]},
-      description: description
-    });
+//   const { name , address , description , type  , longitude , latitude } = req.body;
 
-    res.status(201).json({ destination: destination._id});
-  }
-  catch(err){
-    res.status(400).json({ errors: err });
-  }
-});
+//   try{
+//     const destination = await Destination.create({
+//       name, 
+//       address,
+//       location: {type: type, coordinates: [longitude,latitude]},
+//       description: description
+//     });
+
+//     res.status(201).json({ destination: destination._id});
+//   }
+//   catch(err){
+//     res.status(400).json({ errors: err });
+//   }
+// });
 
 
-app.get("/destinations/:id",(req,res) => {
+// app.get("/destinations/:id",(req,res) => {
 
-  const id = String(req.params.id);
+//   const id = String(req.params.id);
 
-  Destination.findById(id)
-    .then((result) => {
-      res.status(200).json({ destination: result});
-    })
-    .catch((err) => {
-      res.status(400).json({ errors: err });
-    });
-});
+//   Destination.findById(id)
+//     .then((result) => {
+//       res.status(200).json({ destination: result});
+//     })
+//     .catch((err) => {
+//       res.status(400).json({ errors: err });
+//     });
+// });
 
 
 
@@ -135,36 +121,39 @@ app.get("/destinations/:id",(req,res) => {
 
 
 
-app.get('/parking-slots', (req, res) => {
-  const longitude = Number(req.query.longitude);
-  const latitude = Number(req.query.latitude);
-  const range = Number(req.query.range);
-  //db.collection('destinations').find({
-    Parking.find({
-    location: {
-      $nearSphere: {
-        $geometry: {
-          type: "Point",
-          coordinates: [longitude, latitude]
-        },
-        $maxDistance: range 
-      }
-    }
-  }).toArray((err, result) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send('Error fetching parking slots!');
-    } else {
-      res.json(result);
-    }
-  });
-});
+// app.get('/parking-slots', async  (req, res) => {
+//   const longitude = Number(req.query.longitude);
+//   const latitude = Number(req.query.latitude);
+//   const range = Number(req.query.range);
 
 
-app.get("/parking-slots/:id",(req,res) => {
+//   try{
+//   //db.collection('destinations').find({
+//    const nearParkings = await  Parking.find({
+//     location: {
+//       $nearSphere: {
+//         $geometry: {
+//           type: "Point",
+//           coordinates: [longitude, latitude]
+//         },
+//         $maxDistance: range 
+//       }
+//     }
+//   });
+  
+//   res.status(200).json(nearParkings);
+// }
+// catch(err){
+//   console.error(err);
+//   res.status(500).send('Error fetching parking slots!');
+// }});
 
-});
 
-app.get("/events",(req,res) => {
 
-});
+// app.get("/parking-slots/:id",(req,res) => {
+
+// });
+
+// app.get("/events",(req,res) => {
+
+// });
