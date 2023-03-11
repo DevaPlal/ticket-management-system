@@ -10,9 +10,9 @@ const app = express();
 
 const PORT = 3000;
 
-const dbURI = `mongodb+srv://${process.env.DBUser}:${process.env.DBPass}@cluster0.430qrv7.mongodb.net/?retryWrites=true&w=majority`;
+// const dbURI = `mongodb+srv://${process.env.DBUser}:${process.env.DBPass}@cluster0.430qrv7.mongodb.net/?retryWrites=true&w=majority`;
 
-mongoose.connect(dbURI,{
+mongoose.connect(process.env.DBURI,{
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
