@@ -3,8 +3,15 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const destinationSchema = new Schema({
-  name: String,
-  address: String,
+  name:{
+    type: String,
+    required: [true, "Please enter a name"],
+  } ,
+  address: {
+    type: String,
+    require: [true ,"Please enter an address"],
+    unique: [true],
+  },
   location: {
     type: {
       type: String,
@@ -16,7 +23,9 @@ const destinationSchema = new Schema({
       required: true
     }
   },
-  description: String
+  description: { 
+    type: String
+   },
 },
   { timestamps: true });
 
