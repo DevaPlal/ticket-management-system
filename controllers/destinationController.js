@@ -27,21 +27,23 @@ const destinationIndex = async (req, res) => {
     }
     catch(err){
       console.log(err);
-      res.status(500).json({"message":"Internal server error  "});
+      res.status(500).json({"message":"Error in fetching nearby tourist destinations  "});
     } ;
 };
 
 
-const destinationShow = (req,res) => {
+const destinationShow = async(req,res) => {
 
     const id = String(req.params.id);
   
-    Destination.findById(id)
-      .then((result) => {
+    try{
+        const result = await Destination.findById(id);
+
         res.status(200).json({ destination: result});
-      })
-      .catch((err) => {
-        res.status(400).json({ errors: err });
+    }
+    catch(err){
+      res.status(400).json({ errors: err });
+    }
       });
   };
 
