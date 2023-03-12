@@ -14,7 +14,7 @@ npm install
 cp .env.example .env
 ```
 
-Then create a new clsuter in atlas , add connection string to .env file
+Then create a new clsuter in  mongodb atlas , add connection string to .env file
 
 ### To run the project 
 
