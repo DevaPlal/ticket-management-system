@@ -44,7 +44,6 @@ const destinationShow = async(req,res) => {
     catch(err){
       res.status(400).json({ errors: err });
     }
-      });
   };
 
 const destinationCreate = async (req,res) => {

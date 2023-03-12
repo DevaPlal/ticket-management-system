@@ -13,7 +13,7 @@ const parkingSchema = new Schema({
         type: Number,
         required: true,
     },
-    avilableSlots: {
+    availableSlots: {
         type: Number,
         required: true
     },

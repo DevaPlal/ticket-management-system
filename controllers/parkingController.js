@@ -44,14 +44,14 @@ const Parking = require("../models/parking");
 
       const parkingCreate = async (req,res) => {
 
-        const { address , totalSlots , avilableSlots , type , longitude , latitude } = req.body;
+        const { address , totalSlots , availableSlots , type , longitude , latitude } = req.body;
 
         try{
 
           const parking = await Parking.create({
             address, 
             totalSlots,
-            avilableSlots,
+            availableSlots,
             location : { type: type , coordinates: [longitude,latitude]}
           });
 
