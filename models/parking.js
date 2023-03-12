@@ -9,11 +9,11 @@ const parkingSchema = new Schema({
         required: true,
         unique: true
     },
-    totalslots: {
+    totalSlots: {
         type: Number,
         required: true,
     },
-    avilableslots: {
+    avilableSlots: {
         type: Number,
         required: true
     },

@@ -1,4 +1,5 @@
-    const Parking = require("../models/parking");
+    const Destination = require("../models/destination");
+const Parking = require("../models/parking");
 
     const parkingIndex = async  (req, res) => {
         const longitude = Number(req.query.longitude);
@@ -23,15 +24,48 @@
       }
       catch(err){
         console.error(err);
-        res.status(500).send('Error fetching parking slots!');
+        res.status(500).json({ message:"Error in fetching nearby parking slots"});
       }};
 
 
-      const parkingShow = async (req,res) => {};
+      const parkingShow = async (req,res) => {
 
+        const id = String(req.params.id);
+
+        try{
+          const result = await Destination.findById(id);
+
+          res.status(200).json({ destionation: result});
+        }
+        catch(err){
+          res.status(400).json({errors: err});
+        }
+      };
+
+      const parkingCreate = async (req,res) => {
+
+        const { address , totalSlots , avilableSlots , type , longitude , latitude } = req.body;
+
+        try{
+
+          const parking = await Parking.create({
+            address, 
+            totalSlots,
+            avilableSlots,
+            location : { type: type , coordinates: [longitude,latitude]}
+          });
+
+          res.status(201).json({ parking: parking._id });
+        }
+        catch(err){
+          res.status(400).json({errors: err});
+        }
+      };
 
       module.exports = {
 
-        parkingIndex, parkingShow
+        parkingIndex,
+        parkingCreate, 
+        parkingShow,
       };
 
