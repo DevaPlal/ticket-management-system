@@ -2,7 +2,7 @@
 
 
 const index = (req,res) => {
-    res.status(200).json({ status : "ok" });
+    res.render("index", { title: "Ticket Management System" });
 };
 
 module.exports = {

@@ -2,9 +2,9 @@
 const Parking = require("../models/parking");
 
     const parkingIndex = async  (req, res) => {
-        const longitude = Number(req.query.longitude);
-        const latitude = Number(req.query.latitude);
-        const range = Number(req.query.range);
+
+
+      const { latitude , longitude , range } = req.query;
       
         try{
     
