@@ -3,9 +3,11 @@ const Destination = require("../models/destination");
 
 const destinationIndex = async (req, res) => { 
 
-    const longitude = Number(req.body.longitude);
-    const latitude = Number(req.body.latitude);
-    const range = Number(req.body.range);
+    // const longitude = Number(req.body.longitude);
+    // const latitude = Number(req.body.latitude);
+    // const range = Number(req.body.range);
+
+    const { latitude , longitude , range } = req.query;
   
     console.log(longitude,latitude,range);
     try{

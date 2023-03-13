@@ -1,8 +1,8 @@
 
-const renderMap = (latitude, longitude) => {
+const renderMap = (latitude, longitude , data) => {
 
    // Create a map centered on a specific location
-const map = L.map('map').setView([latitude, longitude], 16);
+const map = L.map('map').setView([latitude, longitude], 12);
 
 // Add a tile layer to the map
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -10,9 +10,21 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 // Add a marker to the map
-L.marker([latitude, longitude]).addTo(map)
-  .bindPopup('Current')
+
+console.log(data);
+
+data.forEach((element) => {
+  console.log(element.location.coordinates[0]);
+
+  L.marker([element.location.coordinates[0], element.location.coordinates[1]]).addTo(map)
+  .bindPopup('d')
   .openPopup();
+});
+
+L.marker([latitude,longitude]).addTo(map)
+.bindPopup('Current')
+.openPopup();
+
 };
 
 
@@ -23,15 +35,26 @@ const fetchCurrentLocation = () => {
           position => {
             const { latitude, longitude } = position.coords; 
             console.log(latitude,longitude);
-            renderMap(latitude, longitude);
+            fetchNearByDestinations(latitude,longitude);
+            // renderMap(latitude, longitude);
         } 
         )}  
 };
 
 
 
-const fetchNearByDestinations = async () => {
+const fetchNearByDestinations =  (latitude,longitude,range=50000) => {
     
+  const url = `http://localhost:3000/user/destinations?latitude=${longitude}&longitude=${latitude}&range=${range}`;
+
+  fetch(url)
+    .then(response => response.json())
+    .then((data) => {
+      // console.log(data);
+      renderMap(latitude,longitude,data)
+    })
+    .catch(error => console.error(error));
+  
 };
 
 
