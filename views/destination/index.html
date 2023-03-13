@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Leaflet Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+<body>
+  <div id="map" style="height: 500px;"></div>
+  <script>
+    // Create a map centered on a specific location
+    const map = L.map('map').setView([8.89311011412576, 76.62073528754699], 17);
+    
+    // Add a tile layer to the map
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    
+    // Add a marker to the map
+    L.marker([8.89311011412576, 76.62073528754699]).addTo(map)
+      .bindPopup('Kollam')
+      .openPopup();
+  </script>
+</body>
+</html>
