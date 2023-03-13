@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Leaflet Map</title>
+  <title>Nearest Map</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <link rel="stylesheet" href="../styles.css">
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 </head>
 <body>
-  <div id="map" style="height: 500px;"></div>
-  <script>
-    // Create a map centered on a specific location
-    const map = L.map('map').setView([8.89311011412576, 76.62073528754699], 17);
-    
-    // Add a tile layer to the map
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
-    }).addTo(map);
-    
-    // Add a marker to the map
-    L.marker([8.89311011412576, 76.62073528754699]).addTo(map)
-      .bindPopup('Kollam')
-      .openPopup();
+  <nav class="navbar">
+    <label class="logo">DTPC</label>
+    <ul>
+      <li><a href="../../views/generic/index.html">Home</a></li>
+      <li><a href="../../views/ticket/index.html">Book Tickets</a></li>
+      <li><a href="../../views/destination/index.html">Destinations Near Me</a></li>
+      <li><a href="../../views/parking/index.html">Parkings Near Me</a></li>
+    </ul>
+  </nav>
+
+  <button id="fetch-location">Click Me</button>
+
+  <div id="map" class="map" style="height: 650px;"></div>
+  <script src="index.js">
+   
   </script>
 </body>
 </html>
