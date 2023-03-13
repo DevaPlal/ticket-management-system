@@ -1,5 +1,9 @@
 const Destination = require("../models/destination");
 
+const destinationIndexGet = (req,res) => {
+  res.render("destination/index",{title:"Nearby Destinations"});
+};
+
 
 const destinationIndex = async (req, res) => { 
 
@@ -65,6 +69,7 @@ const destinationCreate = async (req,res) => {
 
 
   module.exports = {
+    destinationIndexGet,
     destinationIndex,
     destinationShow,
     destinationCreate

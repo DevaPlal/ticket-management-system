@@ -1,8 +1,14 @@
     const Destination = require("../models/destination");
 const Parking = require("../models/parking");
 
-    const parkingIndex = async  (req, res) => {
 
+const parkingIndexGet = (req,res) => {
+
+  res.render("parking/index",{title:"Nearest Parking"});
+};
+
+
+    const parkingIndex = async  (req, res) => {
 
       const { latitude , longitude , range } = req.query;
       
@@ -64,6 +70,7 @@ const Parking = require("../models/parking");
 
       module.exports = {
 
+        parkingIndexGet,
         parkingIndex,
         parkingCreate, 
         parkingShow,

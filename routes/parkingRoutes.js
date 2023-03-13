@@ -4,7 +4,7 @@ const router = express.Router();
 
 const parkingController = require("../controllers/parkingController");
 
-
+router.get("/parking-slots",parkingController.parkingIndexGet);
 router.get("/user/parking-slots",parkingController.parkingIndex);
 router.post("/admmin/parking-slots",parkingController.parkingCreate);
 router.get("/user/parking-slots/:id",parkingController.parkingShow);

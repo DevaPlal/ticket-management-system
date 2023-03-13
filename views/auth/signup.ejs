@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/head.ejs') %>
+  <body>
+    <%- include('../partials/nav.ejs') %>
+    <h2 class="title">Signup</h2>
+    <div class="form">
+      <div></div>
+      <form action="/signup" method="POST">
+        <label for="fname">First Name</label><br />
+        <input type="text" id="fname" name="fname" /><br />
+        <span class="error" id="fnameErr"></span><br />
+        
+        <label for="lname">Last Name</label><br />
+        <input type="text" id="lname" name="lname" /><br />
+        <span class="error" id="lnameErr"></span><br />
+
+        <label for="phone">Phone</label><br />
+        <input type="text" id="phone" name="phone" /><br />
+        <span class="error" id="phoneErr"></span> <br />
+
+        <label for="email">Email</label><br />
+        <input type="text" id="email" name="email" /><br />
+        <span class="error" id="emailErr"></span> <br />
+
+        <label for="password">Password</label><br />
+        <input type="password" id="password" name="password" /><br />
+        <span class="error" id="passwordErr"></span> <br />
+        <button class="user-signup-btn">Signup</button>
+        <p>
+          Already have an account? <a href="/auth/signin" class="link">signin</a>
+        </p>
+      </form>
+      <div></div>
+    </div>
+      <script>
+        const form = document.querySelector("form");
+        const fnameErr = document.getElementById("fnameErr");
+        const lnameErr = document.getElementById("lnameErr");
+        const emailErr = document.getElementById("emailErr");
+        const phoneErr = document.getElementById("phoneErr");
+        const passwordErr = document.getElementById("passwordErr");
+        const btn = document.querySelector("button");
+
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const fname = document.getElementById("fname").value;
+          const lname = document.getElementById("lname").value;
+          const phone = document.getElementById("phone").value;
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+
+          //console.log(fname, lname, email, password);
+          emailErr.textContent = "";
+          passwordErr.textContent = "";
+
+          try {
+            const res = await fetch("/auth/signup", {
+              method: "POST",
+              body: JSON.stringify({ fname, lname,phone, email, password }),
+              headers: { "Content-Type": "application/json" },
+            });
+            const data = await res.json();
+            console.log(data);
+
+            if (data.errors) {
+              fnameErr.textContent = data.errors.fname;
+              lnameErr.textContent = data.errors.lname;
+              phoneErr.textContent = data.errors.phone;
+              emailErr.textContent = data.errors.email;
+              passwordErr.textContent = data.errors.password;
+            }
+            if (data.user) {
+              location.assign("/");
+            }
+          } catch (err) {
+            console.log(err);
+          }
+        });
+      </script>
+   
+    <%- include('../partials/footer.ejs') %>
+  </body>
+</html>
