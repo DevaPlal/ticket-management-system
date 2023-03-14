@@ -17,7 +17,7 @@ const eventSchema = new Schema({
     required: [true, "Please specify a venue"],
   },
   date: {
-    type: date,
+    type: Date,
     required: [true, "Please specify a date for the event"]
   },
   status: {
@@ -31,7 +31,12 @@ const eventSchema = new Schema({
   availableSeats: {
     type: Number,
     required: true
-  }
+  },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: [true, "Creater by can't be null"],
+  },
 },
   { timestamps: true });
 
