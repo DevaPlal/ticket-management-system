@@ -2,10 +2,20 @@
     <label class="logo">DTPC</label>
     <ul>
       <li><a href="/">Home</a></li>
-      <li><a href="">Book Tickets</a></li>
+      <li><a href="/user/events">Book Tickets</a></li>
       <li><a href="/destinations">Destinations Near Me</a></li>
       <li><a href="/parking-slots">Parkings Near Me</a></li>
-      <li><a href="">Signup</a></li>
-      <li><a href="/auth/signin">Signin</a></li>
+      <% if(!user) { %>
+        <li>
+          <a href="/auth/signin">Signin</a>
+        </li>
+        <% } else { %>
+        <li>
+          <a href="/auth/<%= user._id %>"><%= user.fname %> <%= user.lname %></a>
+        </li>
+        <li>
+          <a href="/auth/signout">Logout</a>
+        </li>
+        <% } %>
     </ul>
   </nav>

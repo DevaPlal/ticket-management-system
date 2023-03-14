@@ -8,6 +8,37 @@
   <script>
 
 
+
+const fetchCurrentLocation = () => {
+
+ if (navigator.geolocation) {
+     navigator.geolocation.getCurrentPosition(
+       position => {
+         const { latitude, longitude } = position.coords; 
+         console.log(latitude,longitude);
+         fetchNearByDestinations(latitude,longitude);
+     } 
+     )}  
+};
+
+
+
+const fetchNearByDestinations =  (latitude,longitude,range=50000) => {
+ 
+const url = `http://localhost:3000/user/destinations?latitude=${longitude}&longitude=${latitude}&range=${range}`;
+
+fetch(url)
+ .then(response => response.json())
+ .then((data) => {
+   // console.log(data);
+   renderMap(latitude,longitude,data)
+ })
+ .catch(error => console.error(error));
+
+};
+
+
+
 const renderMap = (latitude, longitude , data) => {
 
 // Create a map centered on a specific location
@@ -33,36 +64,6 @@ L.marker([element.location.coordinates[0], element.location.coordinates[1]]).add
 L.marker([latitude,longitude]).addTo(map)
 .bindPopup('Current')
 .openPopup();
-
-};
-
-
-const fetchCurrentLocation = () => {
-
- if (navigator.geolocation) {
-     navigator.geolocation.getCurrentPosition(
-       position => {
-         const { latitude, longitude } = position.coords; 
-         console.log(latitude,longitude);
-         fetchNearByDestinations(latitude,longitude);
-         // renderMap(latitude, longitude);
-     } 
-     )}  
-};
-
-
-
-const fetchNearByDestinations =  (latitude,longitude,range=50000) => {
- 
-const url = `http://localhost:3000/user/destinations?latitude=${longitude}&longitude=${latitude}&range=${range}`;
-
-fetch(url)
- .then(response => response.json())
- .then((data) => {
-   // console.log(data);
-   renderMap(latitude,longitude,data)
- })
- .catch(error => console.error(error));
 
 };
 

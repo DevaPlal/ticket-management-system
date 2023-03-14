@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/header.ejs') %>
+  <body>
+    <%- include('../partials/nav.ejs') %>
+
+    <div id="content">
+      <p id="userId"><%= user._id %></p>
+      <p id="eventId"><%= event._id %></p>
+      <p><%= event.name %></p>
+      <p><%= event.description %></p>
+      <p><%= event.venue %></p>
+      <p><%= event.date %></p>
+      <button id="btn">Book ticket</button>
+    
+    
+
+
+      </div>
+    </div>
+    <%- include('../partials/footer.ejs') %>
+  </body>
+  <script>
+    const eventId = document.getElementById("eventId").textContent;
+    const btn = document.getElementById("btn");
+
+
+    btn.addEventListener("click",() =>{
+
+      console.log(eventId);
+      const url =  `http://localhost:3000/user/events/checkout/${eventId}`;
+
+      location.assign(url);
+    });
+
+  </script>
+</html>
+
+

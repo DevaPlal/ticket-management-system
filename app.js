@@ -8,6 +8,7 @@ const genericRoutes = require("./routes/genericRoutes");
 const destinationRoutes = require("./routes/destinationRoutes");
 const parkingRoutes = require("./routes/parkingRoutes");
 const eventRoutes = require("./routes/eventRoutes");
+const { checkUser } = require("./middleware/authMiddleware");
 
 
 const app = express();
@@ -27,9 +28,6 @@ mongoose.connect(process.env.DBURI,{
     console.log(err);
   });
 
-
-
-
 //set up CORS headers
 
   app.use((req, res, next) => {
@@ -47,12 +45,9 @@ app.use(express.static("public"));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use("*",checkUser);
+app.use(genericRoutes,authRoutes,destinationRoutes,parkingRoutes,eventRoutes);
 
-app.use(genericRoutes);
-app.use(authRoutes);
-app.use(destinationRoutes);
-app.use(parkingRoutes);
-app.use(eventRoutes);
 
 
 

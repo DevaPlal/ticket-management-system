@@ -8,9 +8,11 @@ const eventSchema = new Schema({
     required: true,
     unique: [true,"Event already registered"],
   },
+  
   description: {
     type: String,
-    required: [true, "Please provide a description"]
+    required: [true, "Please provide a description"],
+    
   },
   venue: {
     type: String,
@@ -22,7 +24,11 @@ const eventSchema = new Schema({
   },
   status: {
     type: String,
-    required: true
+    required: [true, "Please provide a status"]
+  },
+  amount: {
+    type: Number,
+    required: [true, "Please provide an amount"]
   },
   totalSeats: {
     type: Number,
@@ -30,7 +36,7 @@ const eventSchema = new Schema({
   },
   availableSeats: {
     type: Number,
-    required: true
+    required: [true, "Please provide the number of available seats"]
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,

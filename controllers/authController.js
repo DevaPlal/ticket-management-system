@@ -41,9 +41,6 @@ const createToken = (id) => {
   });
 };
 
-const userSigninGet = (req,res) => {
-  res.render("auth/signin",{title:"Signin"});
-};
 
 const userSignupGet = (req,res) => {
   res.render("auth/signup",{title:"Signup"});
@@ -73,6 +70,9 @@ const userSignupPost = async (req, res) => {
   
 };
 
+const userSigninGet = (req,res) => {
+  res.render("auth/signin",{title:"Signin"});
+};
 
 
 const userSigninPost = async (req, res) => {

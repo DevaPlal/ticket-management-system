@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/header.ejs') %>
+  <body>
+    <%- include('../partials/nav.ejs') %>
+
+    <div class="form">
+      <form action="/admin/create-event">
+        <input
+          type="hidden"
+          id="createdBy"
+          name="createdBy"
+          value="<%= user._id %>"
+        />
+
+        <label for="name">Name</label><br />
+        <input type="text" id="name" name="name" /><br />
+        <span class="error" id="nameErr"></span><br />
+
+
+        <label for="description">Description</label><br />
+        <input type="text" id="description" name="description" /><br />
+        <span class="error" id="descriptionErr"></span><br />        
+
+
+        <label for="venue">Venue</label><br />
+        <input type="text" id="venue" name="venue" /><br />
+        <span class="error" id="venueErr"></span><br />        
+
+
+        <label for="date">Date</label><br />
+        <input type="date" id="date" name="date" /><br />
+        <span class="error" id="dateErr"></span><br />     
+        
+        <label for="seat">Total seats</label><br />
+        <input type="seat" id="seat" name="seat" /><br />
+        <span class="error" id="seatErr"></span><br />   
+
+        <button id="btn">Register</button>
+        
+      </form>
+    </div>
+
+    <script>
+
+      const form = document.querySelector("form");
+      const nameErr = document.getElementById("nameErr");
+      const descriptionErr = document.getElementById("descriptionErr");
+      const venueErr = document.getElementById("venueErr");
+      const dateErr = document.getElementById("dateErr");
+      const seatErr = document.getElementById("seatErr");
+      const btn = document.getElementById("btn");
+  
+
+      form.addEventListener("submit",async (e) => {
+        e.preventDefault();
+      
+      const name = document.getElementById("name").value;
+      const description = document.getElementById("description").value;
+      const venue = document.getElementById("venue").value;
+      const date = document.getElementById("date").value;
+      const totalSeats = document.getElementById("seat").value;
+      const createdBy = document.getElementById("createdBy").value;
+
+      const availableSeats = totalSeats;
+      const status = "active";
+
+
+      nameErr.textContent = "";
+      descriptionErr.textContent = "";
+      venueErr.textContent = "";
+      dateErr.textContent = "";
+      seatErr.textContent = "";
+
+    
+
+      console.log(name,description,venue,date,totalSeats,availableSeats,createdBy,status);
+
+      try{
+
+        const res = await fetch("http://localhost:3000/admin/create-event",{
+          method: "POST",
+          body: JSON.stringify({
+            name,
+            description,
+            venue,
+            date,
+            totalSeats,
+            availableSeats,
+            status,
+            createdBy
+          }),
+          headers: { "Content-Type": "application/json" },
+        });
+
+        const data = await res.json();
+
+
+         console.log(data);
+
+          if (data.errors) {
+            nameErr.textContent = data.errors.name;
+            descriptionErr.textContent = data.errors.description;
+            venueErr.textContent = data.errors.venue;
+            dateErr.textContent = data.errors.date;
+            // seatErr.textContent = data.errors.
+          }
+          if (data.event) {
+            location.assign("/");
+          }
+        } catch (err) {
+          console.log(err);
+        }
+
+      });
+
+    </script>
+    <%- include('../partials/footer.ejs') %>
+  </body>
+</html>

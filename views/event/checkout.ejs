@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../partials/header.ejs') %>
+<body>
+    <%- include('../partials/nav.ejs') %>
+
+    <div id="content">
+            <h2>Summary</h2>
+
+
+                <p id="eventName"><%= event.name %></p>
+                <p id="eventDescription"><%= event.description %></p>
+                <p id="eventVenue"><%= event.venue %></p>
+                <p id="eventDate"><%= event.date %></p>
+                <!-- <p id="userid"><%= user._id %></p> -->
+                <input type="hidden" id="eventId" value="<%= event._id %>">
+                <input type="hidden" id="userId" value="<%= user._id %>">
+              Please Enter a name  <input type="text" id="userName" >
+                <button id="icreaseBtn">+</button> <p id="countElm">1</p><button id="decreaseBtn">-</button> <br>
+                <button id="btn">Checkout</button>
+
+        
+    </div>
+    <%- include('../partials/footer.ejs') %>
+</body>
+<script>
+    const increaseBtn = document.getElementById("icreaseBtn");
+    const decreseBtn = document.getElementById("decreseBtn");
+    const countElm = document.getElementById("countElm");
+    const btn = document.getElementById("btn");
+
+    let count = 1;
+
+    const increaseCount = () =>{
+
+        if(count < 5) {
+            count++;
+            countElm.textContent = count;
+        }
+        console.log(count);
+    }
+
+
+    const decreaseCount = () =>{
+        if(count > 0 ) {
+            count--;
+            countElm.textContent = count;
+        }
+        console.log(count);
+    }
+
+
+    increaseBtn.addEventListener("click",increaseCount);
+    decreaseBtn.addEventListener("click",decreaseCount);
+    
+    btn.addEventListener("click",async (e) => {
+
+        const user = document.getElementById("userId");
+        const userName = document.getElementById("userName").value;
+        const event = document.getElementById("eventId");
+        const status = "Pending";
+
+        console.log(userId,userName,eventDate,eventName,eventDate);
+
+
+            try{
+
+                const res = await fetch("http://localhost:3000/user/checkout",{
+                method: "POST",
+                body: JSON.stringify({
+                    user,
+                    event,
+                    userName,
+                    count,
+                    status,
+                    total
+                }),
+                 headers: { "Content-Type": "application/json" },
+                });
+
+                const data = await res.json();
+            }
+            catch (err){
+                console.log(err);
+            }
+
+
+    });
+
+</script>
+</html>
