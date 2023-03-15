@@ -48,7 +48,6 @@ const eventCheckoutPost = async (req,res) => {
     const { user , userName , event , count , total , status } = req.body;
 
     try{
-
         const booking = await Booking.create({
             user,userName,event,count,total,status
             
@@ -72,7 +71,7 @@ const eventCreateGet = (req,res) => {
 
 const eventCreatePost = async (req,res) => {
 
-    const { name , description , venue , date , totalSeats,availableSeats,status, createdBy } = req.body;
+    const { name , description , venue , date ,amount, totalSeats,availableSeats,status, createdBy } = req.body;
 
     try{
 
@@ -81,6 +80,7 @@ const eventCreatePost = async (req,res) => {
             description,
             venue,
             date,
+            amount,
             status,
             totalSeats,
             availableSeats,

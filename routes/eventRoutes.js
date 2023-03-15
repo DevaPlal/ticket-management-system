@@ -6,7 +6,7 @@ const eventController = require("../controllers/eventController");
 
 router.get("/user/events", eventController.eventIndex);
 router.get("/user/events/checkout/:id", eventController.eventCheckoutGet);
-router.get("/user/events/checkout/", eventController.eventCheckoutPost);
+router.post("/user/events/checkout/", eventController.eventCheckoutPost);
 router.get("/user/events/:id", eventController.eventShow);
 router.get("/admin/create-event", eventController.eventCreateGet);
 router.post("/admin/create-event", eventController.eventCreatePost);

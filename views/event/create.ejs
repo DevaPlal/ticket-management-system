@@ -28,6 +28,11 @@
         <span class="error" id="venueErr"></span><br />        
 
 
+        <label for="amount">Amount</label><br />
+        <input type="text" id="amount" name="amount" /><br />
+        <span class="error" id="amountErr"></span><br />        
+
+
         <label for="date">Date</label><br />
         <input type="date" id="date" name="date" /><br />
         <span class="error" id="dateErr"></span><br />     
@@ -47,6 +52,7 @@
       const nameErr = document.getElementById("nameErr");
       const descriptionErr = document.getElementById("descriptionErr");
       const venueErr = document.getElementById("venueErr");
+      const amountErr = document.getElementById("amountErr");
       const dateErr = document.getElementById("dateErr");
       const seatErr = document.getElementById("seatErr");
       const btn = document.getElementById("btn");
@@ -58,6 +64,7 @@
       const name = document.getElementById("name").value;
       const description = document.getElementById("description").value;
       const venue = document.getElementById("venue").value;
+      const amount = document.getElementById("amount").value;
       const date = document.getElementById("date").value;
       const totalSeats = document.getElementById("seat").value;
       const createdBy = document.getElementById("createdBy").value;
@@ -69,6 +76,7 @@
       nameErr.textContent = "";
       descriptionErr.textContent = "";
       venueErr.textContent = "";
+      amountErr.textContent = "";
       dateErr.textContent = "";
       seatErr.textContent = "";
 
@@ -85,6 +93,7 @@
             description,
             venue,
             date,
+            amount,
             totalSeats,
             availableSeats,
             status,
@@ -99,10 +108,10 @@
          console.log(data);
 
           if (data.errors) {
-            nameErr.textContent = data.errors.name;
-            descriptionErr.textContent = data.errors.description;
-            venueErr.textContent = data.errors.venue;
-            dateErr.textContent = data.errors.date;
+            // nameErr.textContent = data.errors.name;
+            // descriptionErr.textContent = data.errors.description;
+            // venueErr.textContent = data.errors.venue;
+            // dateErr.textContent = data.errors.date;
             // seatErr.textContent = data.errors.
           }
           if (data.event) {

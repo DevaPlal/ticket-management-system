@@ -15,8 +15,9 @@
                 <!-- <p id="userid"><%= user._id %></p> -->
                 <input type="hidden" id="eventId" value="<%= event._id %>">
                 <input type="hidden" id="userId" value="<%= user._id %>">
-              Please Enter a name  <input type="text" id="userName" >
-                <button id="icreaseBtn">+</button> <p id="countElm">1</p><button id="decreaseBtn">-</button> <br>
+              Please Enter a name <br> <input type="text" id="userName" > <br>
+              <span id="userNameErr"></span><br>
+                <button id="icreaseBtn">+</button> <span id="countElm">1</span><button id="decreaseBtn">-</button> <br>
                 <button id="btn">Checkout</button>
 
         
@@ -27,6 +28,7 @@
     const increaseBtn = document.getElementById("icreaseBtn");
     const decreseBtn = document.getElementById("decreseBtn");
     const countElm = document.getElementById("countElm");
+    const userNameErr = document.getElementById("userNameErr");
     const btn = document.getElementById("btn");
 
     let count = 1;
@@ -55,17 +57,23 @@
     
     btn.addEventListener("click",async (e) => {
 
-        const user = document.getElementById("userId");
+        
+        const user = document.getElementById("userId").value;
         const userName = document.getElementById("userName").value;
-        const event = document.getElementById("eventId");
+        const event = document.getElementById("eventId").value;
         const status = "Pending";
+        const total = 500;
 
-        console.log(userId,userName,eventDate,eventName,eventDate);
+        userNameErr.textContent = "";
 
+        if(!userName){
+            userNameErr.textContent = "Please neter a username";
+        }
+        else {
 
             try{
 
-                const res = await fetch("http://localhost:3000/user/checkout",{
+                const res = await fetch("http://localhost:3000/user/events/checkout",{
                 method: "POST",
                 body: JSON.stringify({
                     user,
@@ -75,16 +83,16 @@
                     status,
                     total
                 }),
-                 headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "application/json" },
                 });
 
                 const data = await res.json();
-            }
-            catch (err){
-                console.log(err);
-            }
 
-
+                console.log(data);
+                }
+                  catch (err){
+                        console.log(err);
+                    }}
     });
 
 </script>
