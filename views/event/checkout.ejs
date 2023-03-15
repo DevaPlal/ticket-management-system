@@ -44,13 +44,18 @@
 
 
     const decreaseCount = () =>{
-        if(count > 0 ) {
+        if(count > 1 ) {
             count--;
             countElm.textContent = count;
         }
         console.log(count);
     }
 
+    const calculateTotal = (amount , count) => {
+        total = count * amount;
+
+        return total;
+    };
 
     increaseBtn.addEventListener("click",increaseCount);
     decreaseBtn.addEventListener("click",decreaseCount);
@@ -62,7 +67,7 @@
         const userName = document.getElementById("userName").value;
         const event = document.getElementById("eventId").value;
         const status = "Pending";
-        const total = 500;
+        const total = calculateTotal(amount,count);
 
         userNameErr.textContent = "";
 

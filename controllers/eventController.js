@@ -57,11 +57,7 @@ const eventCheckoutPost = async (req,res) => {
     catch(err){
         console.log(err);
     }
-
-
 };
-
-
 
 
 const eventCreateGet = (req,res) => {
