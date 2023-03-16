@@ -8,11 +8,9 @@ const eventSchema = new Schema({
     required: true,
     unique: [true,"Event already registered"],
   },
-  
   description: {
     type: String,
-    required: [true, "Please provide a description"],
-    
+    required: [true, "Please provide a description"],  
   },
   venue: {
     type: String,

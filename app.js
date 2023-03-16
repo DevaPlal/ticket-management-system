@@ -37,6 +37,7 @@ mongoose.connect(process.env.DBURI,{
     next();
   });
 
+  
     //setting up view engine
 app.set("view engine", "ejs");
 

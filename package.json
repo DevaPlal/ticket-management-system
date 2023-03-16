@@ -20,6 +20,7 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.1",
     "serve-favicon": "^2.5.0",
+    "stripe": "^11.14.0",
     "validator": "^13.9.0"
   },
   "devDependencies": {
