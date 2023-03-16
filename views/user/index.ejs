@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/header.ejs') %>
+  <body>
+    <div class="content">
+      <%- include('./partials/nav.ejs') %>
+
+      <h2><%= user.fname %> <%= user.lname %></h2>
+      <p><%= user.email %></p>
+      <p><%= user.phone %> </p>
+
+    </div>
+    <%- include('./partials/footer.ejs') %>
+  </body>
+</html>

@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv").config();
+const stripe = require("stripe")(process.env.STRIPE_SK);
+
 
 const authRoutes = require("./routes/authRoutes");
 const genericRoutes = require("./routes/genericRoutes");
@@ -13,7 +15,7 @@ const { checkUser } = require("./middleware/authMiddleware");
 
 const app = express();
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 mongoose.connect(process.env.DBURI,{
   useNewUrlParser: true,
@@ -48,7 +50,5 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("*",checkUser);
 app.use(genericRoutes,authRoutes,destinationRoutes,parkingRoutes,eventRoutes);
-
-
 
 

@@ -20,7 +20,7 @@ const eventSchema = new Schema({
     type: Date,
     required: [true, "Please specify a date for the event"]
   },
-  status: {
+  isActive: {
     type: String,
     required: [true, "Please provide a status"]
   },

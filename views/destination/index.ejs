@@ -56,14 +56,19 @@ console.log(data);
 data.forEach((element) => {
 console.log(element.location.coordinates[0]);
 
-L.marker([element.location.coordinates[0], element.location.coordinates[1]]).addTo(map)
+const marker = L.marker([element.location.coordinates[0], element.location.coordinates[1]]).addTo(map)
 .bindPopup('d')
-.openPopup();
+.openPopup()
 });
+
+marker.on('click', function() {
+  const markerLatLng = marker.getLatLng();
+        console.log('Marker clicked at latitude: ' + markerLatLng.lat + ', longitude: ' + markerLatLng.lng)});
+
 
 L.marker([latitude,longitude]).addTo(map)
 .bindPopup('Current')
-.openPopup();
+.openPopup()
 
 };
 

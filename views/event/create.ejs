@@ -70,7 +70,7 @@
       const createdBy = document.getElementById("createdBy").value;
 
       const availableSeats = totalSeats;
-      const status = "active";
+      const isActive = "true";
 
 
       nameErr.textContent = "";
@@ -96,7 +96,7 @@
             amount,
             totalSeats,
             availableSeats,
-            status,
+            isActive,
             createdBy
           }),
           headers: { "Content-Type": "application/json" },

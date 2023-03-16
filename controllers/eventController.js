@@ -1,6 +1,8 @@
 const Event = require("../models/event");
 const User = require("../models/user");
 const Booking = require("../models/booking");
+const stripe = require("stripe")(process.env.STRIPE_SK);
+
 
 const eventIndex = async (req,res) => {
 
@@ -45,20 +47,35 @@ const eventCheckoutGet = async (req,res) => {
 
 const eventCheckoutPost = async (req,res) => {
 
-    const { user , userName , event , count , total , status } = req.body;
-
+    const { user , userName , event , count , total ,address,seatNumbers, status } = req.body;
     try{
         const booking = await Booking.create({
-            user,userName,event,count,total,status
+            user,userName,event,address,count,seatNumbers,total,status
             
         });
+
+        const evnt = await Event.findById(event);
+        let name = evnt.name;
+        let description = evnt.description;
+        let venue = evnt.venue;
+        let totalSeats = evnt.totalSeats;
+        let date = evnt.date;
+        let amount = evnt.amount;
+        let isActive = evnt.isActive;
+        let createdBy = evnt.createdBy;
+        let availableSeats = evnt.availableSeats - count;
+
+        console.log(name,description,date,venue,totalSeats,availableSeats,isActive,createdBy);
+        evnt.overwrite({name,description,date,venue,totalSeats,availableSeats,amount,isActive,createdBy});
+
+        await evnt.save();
+
        res.status(201).json({booking: booking._id});
     }
     catch(err){
         console.log(err);
     }
 };
-
 
 const eventCreateGet = (req,res) => {
 
@@ -67,17 +84,15 @@ const eventCreateGet = (req,res) => {
 
 const eventCreatePost = async (req,res) => {
 
-    const { name , description , venue , date ,amount, totalSeats,availableSeats,status, createdBy } = req.body;
-
+    const { name , description , venue , date ,amount, totalSeats,availableSeats,isActive, createdBy } = req.body;
     try{
-
         const event = await Event.create({
             name,
             description,
             venue,
             date,
             amount,
-            status,
+            isActive,
             totalSeats,
             availableSeats,
             createdBy
@@ -109,7 +124,7 @@ module.exports = {
     eventCreatePost,
     eventShow,
     eventCheckoutGet,
-    eventCheckoutPost,
+     eventCheckoutPost,
     eventUpdateGet,
     eventUpdatePost,
     eventDelete

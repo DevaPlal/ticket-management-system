@@ -12,14 +12,18 @@
                 <p id="eventDescription"><%= event.description %></p>
                 <p id="eventVenue"><%= event.venue %></p>
                 <p id="eventDate"><%= event.date %></p>
-                <!-- <p id="userid"><%= user._id %></p> -->
+                <p id="eventAmount"><%= event.amount %></p>
+                <p id="eventSeats"><%= event.availableSeats %></p>
                 <input type="hidden" id="eventId" value="<%= event._id %>">
                 <input type="hidden" id="userId" value="<%= user._id %>">
               Please Enter a name <br> <input type="text" id="userName" > <br>
               <span id="userNameErr"></span><br>
+              Please Enter an address <br> <input type="text" id="userAddress" > <br>
+              <span id="addressErr"></span><br>
                 <button id="icreaseBtn">+</button> <span id="countElm">1</span><button id="decreaseBtn">-</button> <br>
                 <button id="btn">Checkout</button>
 
+            
         
     </div>
     <%- include('../partials/footer.ejs') %>
@@ -29,9 +33,26 @@
     const decreseBtn = document.getElementById("decreseBtn");
     const countElm = document.getElementById("countElm");
     const userNameErr = document.getElementById("userNameErr");
+    const addressErr = document.getElementById("addressErr");
     const btn = document.getElementById("btn");
 
     let count = 1;
+
+    const calculateSeats = (avilableseat,count) => {
+
+        let seatNumbers = [];
+
+        if(avilableseat > 0){
+            for(i = avilableseat; i > avilableseat - count; i--){
+            seatNumbers.push(Number(i));
+
+            console.log("hai",avilableseat,count);
+            console.log(seatNumbers);
+            
+        }}
+
+        return seatNumbers;
+    };
 
     const increaseCount = () =>{
 
@@ -40,19 +61,21 @@
             countElm.textContent = count;
         }
         console.log(count);
+        
     }
-
-
     const decreaseCount = () =>{
         if(count > 1 ) {
             count--;
             countElm.textContent = count;
         }
         console.log(count);
+
+        
     }
+   
 
     const calculateTotal = (amount , count) => {
-        total = count * amount;
+        total = Number(count * amount);
 
         return total;
     };
@@ -65,14 +88,37 @@
         
         const user = document.getElementById("userId").value;
         const userName = document.getElementById("userName").value;
+        const address = document.getElementById("userAddress").value;
         const event = document.getElementById("eventId").value;
-        const status = "Pending";
+        const amount = document.getElementById("eventAmount").textContent;
+        const avail = document.getElementById("eventSeats").textContent;
+        const status = "Complete";
         const total = calculateTotal(amount,count);
+
+        let seatNumbers = [];
+        seatNumbers =  calculateSeats(avail,count); 
+
+
+        console.log(user,
+                    event,
+                    userName,
+                    count,
+                    address,
+                    avail,
+                    seatNumbers,
+                    status,
+                    total);
+
 
         userNameErr.textContent = "";
 
+        console.log(total);
+
         if(!userName){
-            userNameErr.textContent = "Please neter a username";
+            userNameErr.textContent = "Please enter a username";
+        }
+        if(!address){
+            addressErr.textContent = "Please enter an address";
         }
         else {
 
@@ -85,6 +131,8 @@
                     event,
                     userName,
                     count,
+                    address,
+                    seatNumbers,
                     status,
                     total
                 }),
@@ -98,7 +146,7 @@
                   catch (err){
                         console.log(err);
                     }}
-    });
+     });
 
 </script>
 </html>

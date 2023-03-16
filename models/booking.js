@@ -13,6 +13,10 @@ const bookingSchema = new Schema({
     type: String,
     requiired: [true, "Please provide a username"]
   },
+  address: {
+    type: String,
+    required: [true, "Please provide an address"]
+  },
   event: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Event",
@@ -21,6 +25,10 @@ const bookingSchema = new Schema({
   count: {
     type: Number,
     required: [true,"Please provide a count"]
+  },
+  seatNumbers: {
+    type: [Number],
+    required: [true, "Please specify the seat numbers"]
   },
   status: {
     type: String,
