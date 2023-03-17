@@ -10,6 +10,7 @@ const genericRoutes = require("./routes/genericRoutes");
 const destinationRoutes = require("./routes/destinationRoutes");
 const parkingRoutes = require("./routes/parkingRoutes");
 const eventRoutes = require("./routes/eventRoutes");
+const userRoutes = require("./routes/userRoutes");
 const { checkUser } = require("./middleware/authMiddleware");
 
 
@@ -49,6 +50,6 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("*",checkUser);
-app.use(genericRoutes,authRoutes,destinationRoutes,parkingRoutes,eventRoutes);
+app.use(genericRoutes,authRoutes,destinationRoutes,parkingRoutes,eventRoutes,userRoutes);
 
 

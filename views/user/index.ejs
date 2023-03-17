@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include('./partials/header.ejs') %>
+  <%- include('../partials/header.ejs') %>
   <body>
     <div class="content">
-      <%- include('./partials/nav.ejs') %>
+      <%- include('../partials/nav.ejs') %>
 
       <h2><%= user.fname %> <%= user.lname %></h2>
       <p><%= user.email %></p>
       <p><%= user.phone %> </p>
 
+      <a href="/user/ticket-bookings/<%= user._id%>">Tickets</a> <br>
+      <a href="">Parking slots</a>
+
     </div>
-    <%- include('./partials/footer.ejs') %>
+    <%- include('../partials/footer.ejs') %>
   </body>
 </html>
